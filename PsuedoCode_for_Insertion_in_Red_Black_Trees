@@ -1,0 +1,23 @@
+def insert(x)
+    add(x)
+    rebalanceInsert(x)
+
+def rebalanceInsert(x):
+    if(isRoot(x)):
+        makeBlack(x)                      // depth increases by 1
+    else:
+        makeRed(x)
+        y = parent(x)
+        z = grandparent(x)
+        if(isRed(y)):
+            s = sibling(y)                // recoloring is needed
+            if(isBlack(s)):
+                a,b,c = restructure(x)    // case 1
+                makeBlack(b)
+                makeRed(a)
+                makeRed(c)
+            else:
+                makeBlack(y)              // case 2
+                makeBlack(s)
+                makeRed(z)
+                rebalanceInsert(z)

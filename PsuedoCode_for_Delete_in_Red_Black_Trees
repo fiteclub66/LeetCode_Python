@@ -1,0 +1,37 @@
+def delete(p):
+    if(numChildren(p) <= 1):
+        d = isDoubleBlack(p)
+        remove(p)
+        rebalanceDelete(p,d)
+    else:
+        i = inorderPredecessor(p)
+        swapEntreis(p,i)
+        delete(i)
+
+def rebalanceDelete(p,d):
+    if(isRed(p)):
+        makeBlack(p)
+    elseIf(!isRoot(p) and d)
+        resolveDoubleBlack(p)
+
+def resolveDoubleBlack(p):
+    y = sibling(p)
+    z = parent(p)
+    if(isBlack(y)):
+        if(hasRedChild(y):
+            x = getRedChild(y)                // case 1
+            a,b,c = restructure(x)
+            makeBlack(a)
+            makeBlack(c)
+            setColor(b, isRed(z))
+        else:
+            makeRed(y)                        // case 2
+            if(isRed(z):
+                makeBlack(z)
+            elseIf(!isRoot(z)):
+                resolveDoubleBlack(z)
+    else:
+        rotate(y)                             // case 3
+        makeBlack(y)
+        makeRed(z)
+        resolveDoubleBlack(p)
